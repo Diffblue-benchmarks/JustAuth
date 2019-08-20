@@ -1,94 +1,152 @@
 package me.zhyd.oauth.utils;
 
+import me.zhyd.oauth.utils.StringUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.Timeout;
 
 public class StringUtilsTest {
-    @Rule
-    public final ExpectedException thrown =
-        ExpectedException.none();
 
-    @Test
-    public void isEmptyNonEmptyInput() {
-        Assert.assertFalse(StringUtils.isEmpty("non-empty string"));
-    }
+  @Rule public final ExpectedException thrown = ExpectedException.none();
 
-    @Test
-    public void isEmptyEmptyInput() {
-        Assert.assertTrue(StringUtils.isEmpty(""));
-    }
+  @Rule public final Timeout globalTimeout = new Timeout(10000);
 
-    @Test
-    public void isEmptyInputNull() {
-        Assert.assertTrue(StringUtils.isEmpty(null));
-    }
+  // Test written by Diffblue Cover.
+  @Test
+  public void appendIfNotContainInputNotNullNotNullNotNullOutputNotNull() {
 
-    @Test
-    public void isNotEmptyNonEmptyInput() {
-        Assert.assertTrue(StringUtils.isNotEmpty("non-empty string"));
-    }
+    // Arrange
+    final String str = "1";
+    final String appendStr = "2";
+    final String otherwise = "3";
 
-    @Test
-    public void isNotEmptyEmptyInput() {
-        Assert.assertFalse(StringUtils.isNotEmpty(""));
-    }
+    // Act
+    final String actual = StringUtils.appendIfNotContain(str, appendStr, otherwise);
 
-    @Test
-    public void isNotEmptyInputNull() {
-        Assert.assertFalse(StringUtils.isNotEmpty(null));
-    }
+    // Assert result
+    Assert.assertEquals("12", actual);
+  }
 
-    @Test
-    public void appendIfNotContainAppendedStringNotPresent() {
-        // (Check the case where appendStr doesn't occur in str)
-        final String str = "Prefix ";
-        final String appendStr = "suffix";
-        final String otherwise = "should be discarded";
+  // Test written by Diffblue Cover.
+  @Test
+  public void appendIfNotContainInputNotNullNotNullNotNullOutputNotNull2() {
 
-        final String result =
-            StringUtils.appendIfNotContain(str, appendStr, otherwise);
+    // Arrange
+    final String str = "1";
+    final String appendStr = "\'";
+    final String otherwise = ",";
 
-        Assert.assertEquals("Prefix suffix", result);
-    }
+    // Act
+    final String actual = StringUtils.appendIfNotContain(str, appendStr, otherwise);
 
-    @Test
-    public void appendIfNotContainAppendedStringPresent() {
-        // (Check the case where appendStr occurs in str)
-        final String str = "Prefix ";
-        final String appendStr = "Prefix";
-        final String otherwise = "should be appended";
+    // Assert result
+    Assert.assertEquals("1\'", actual);
+  }
 
-        final String result =
-            StringUtils.appendIfNotContain(str, appendStr, otherwise);
+  // Test written by Diffblue Cover.
 
-        Assert.assertEquals("Prefix should be appended", result);
-    }
+  @Test
+  public void appendIfNotContainInputNotNullNotNullNotNullOutputNotNull3() {
 
-    @Test
-    public void appendIfNotContainEmptyString() {
-        // (Check the special-case for str being empty)
-        final String str = "";
-        final String appendStr = "should not be appended";
-        final String otherwise = "should also not be appended";
+    // Arrange
+    final String str = "1234";
+    final String appendStr = "2";
+    final String otherwise = "3";
 
-        final String result =
-            StringUtils.appendIfNotContain(str, appendStr, otherwise);
+    // Act
+    final String actual = StringUtils.appendIfNotContain(str, appendStr, otherwise);
 
-        Assert.assertEquals("", result);
-    }
+    // Assert result
+    Assert.assertEquals("12343", actual);
+  }
 
-    @Test
-    public void appendIfNotContainAppendingEmptyString() {
-        // (Check the special-case for appendStr being empty)
-        final String str = "should be kept";
-        final String appendStr = "";
-        final String otherwise = "should also not be appended";
+  // Test written by Diffblue Cover.
+  @Test
+  public void appendIfNotContainInputNotNullNotNullNotNullOutputNotNull4() {
 
-        final String result =
-            StringUtils.appendIfNotContain(str, appendStr, otherwise);
+    // Arrange
+    final String str = "1a 2b 3c";
+    final String appendStr = "2";
+    final String otherwise = ",";
 
-        Assert.assertEquals("should be kept", result);
-    }
+    // Act
+    final String actual = StringUtils.appendIfNotContain(str, appendStr, otherwise);
+
+    // Assert result
+    Assert.assertEquals("1a 2b 3c,", actual);
+  }
+
+  // Test written by Diffblue Cover.
+  @Test
+  public void appendIfNotContainInputNullNullNullOutputNull() {
+
+    // Arrange
+    final String str = null;
+    final String appendStr = null;
+    final String otherwise = null;
+
+    // Act
+    final String actual = StringUtils.appendIfNotContain(str, appendStr, otherwise);
+
+    // Assert result
+    Assert.assertNull(actual);
+  }
+
+  // Test written by Diffblue Cover.
+  @Test
+  public void isEmptyInputNotNullOutputFalse() {
+
+    // Arrange
+    final String str = "A1B2C3";
+
+    // Act
+    final boolean actual = StringUtils.isEmpty(str);
+
+    // Assert result
+    Assert.assertFalse(actual);
+  }
+
+  // Test written by Diffblue Cover.
+  @Test
+  public void isEmptyInputNullOutputTrue0000d12f819e51fbedd() {
+
+    // Arrange
+    final String str = null;
+
+    // Act
+    final boolean actual = StringUtils.isEmpty(str);
+
+    // Assert result
+    Assert.assertTrue(actual);
+  }
+
+  // Test written by Diffblue Cover.
+  @Test
+  public void isNotEmptyInputNotNullOutputTrue() {
+
+    // Arrange
+    final String str = "3";
+
+    // Act
+    final boolean actual = StringUtils.isNotEmpty(str);
+
+    // Assert result
+    Assert.assertTrue(actual);
+  }
+
+  // Test written by Diffblue Cover.
+  @Test
+  public void isNotEmptyInputNullOutputFalse0006acf39cef6a2a968() {
+
+    // Arrange
+    final String str = null;
+
+    // Act
+    final boolean actual = StringUtils.isNotEmpty(str);
+
+    // Assert result
+    Assert.assertFalse(actual);
+  }
 }
